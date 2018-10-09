@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block navbar-content %}
+<li> <a href="#suggestions"> SUGGESTIONS </a> </li>
+{% endblock %}
+{% block navbaru-content %}
+<li><a href="#youruploads">Your Uploads</a></li>
+{% endblock %}
+
+{% block content %}
+
+<section id="top-home" data-section="home">
+        <div class="gradient"></div>
+        <div class="container">
+            <div class="text-wrap">
+                <div class="text-inner">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h1 class="to-animate" style="font-size:40px;font-family:Pacifico">Hello {{ user.get_username }} !!</h1>
+                            <h2 class="to-animate" style="font-size:25px;font-family:Pacifico">Welcome to Kalam Online Book store !!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="suggestions">
+<div class="container text-center">
+    <h1 style="font-size:30px;">Suggestions for {{ user.get_username }}</h1>
+    <hr style="background:#5c9151; border:0; height:2px" />
+    <div class="container" style="margin-top: -150px;">
+        <div class="row">
+            <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-3">
+                    <div class="controls pull-right hidden-xs">
+                        <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example" data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example" data-slide="next"></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
+                <div class="carousel-inner" style="margin-left: -120px;margin-top: 20px">
+                <div class="item active ">
+                <div class="row">
+                {% for object in doc %}
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <img src="{{object.image.url}}" style="width:120px;height:100px;" class="img-responsive" alt="a">
+                                        </div>
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="price col-md-6">
+                                                    <h5><a href="{% url 'bookpage' pk=object.pk %}">{{ object.title }}</a></h5>
+                                                    <h5>written by</h5>
+                                                    <h5 class="price-text-color"><a href="{% url 'author' pk=object.author %}">{{object.author}}</a></h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <p class="btn-add">
+                                                    Genre:<a href="{% url 'genre' pk=object.genre %}" class="hidden-sm"> {{object.genre}}</a></p>
+                                                <p class="btn-details" style="margin-left: -10px;">
+                                                    <i class="fa fa-list"></i><a href="{% url 'bookpage' pk=object.pk %}" class="hidden-sm">More ..</a></p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                                   </div>
+                                   </div>
+                                   <div class="item">
+                                   <div class="row">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="youruploads">
+<div class="container text-center" style="margin-top: -150px;">
+    <h1 style="font-size:30px;">Your Uploads</h1>
+    <hr style="background:#5c9151; border:0; height:2px" />
+     <div class="container" style="margin-top: -150px;">
+        <div class="row">
+            <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-3">
+                    <div class="controls pull-right hidden-xs">
+                        <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example-1" data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example-1" data-slide="next"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="carousel-example-1" class="carousel slide hidden-xs" data-ride="carousel">
+                <div class="carousel-inner" style="margin-left: -120px;margin-top: 20px">
+                <div class="item active ">
+                <div class="row">
+                {% for object in documents %}
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <img src="{{object.image.url}}" style="width:120px;height:100px;" class="img-responsive" alt="a">
+                                        </div>
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="price col-md-6">
+                                                    <h5><a href="{% url 'bookpage' pk=object.pk %}">{{ object.title }}</a></h5>
+                                                    <h5>written by</h5>
+                                                    <h5 class="price-text-color"><a href="{% url 'author' pk=object.author %}">{{object.author}}</a></h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <p class="btn-add">
+                                                    Genre:<a href="{% url 'genre' pk=object.genre %}" class="hidden-sm"> {{object.genre}}</a></p>
+                                                <p class="btn-details" style="margin-left: 0px;">
+                                                    <a href="{% url 'delete' pk=object.pk %}" class="hidden-sm">Delete book</a>
+                                                    </p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                                   </div>
+                                   </div>
+                                   <div class="item">
+                                   <div class="row">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
